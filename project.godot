@@ -10,7 +10,7 @@ config_version=4
 
 [application]
 
-config/name="Godot Icon.png"
+config/name="DragonFlower"
 run/main_scene="res://Scenes/World/World.tscn"
 config/icon="res://Assets/icon.png"
 
@@ -22,6 +22,10 @@ gdscript/warnings/unsafe_call_argument=true
 [display]
 
 window/stretch/mode="2d"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/pbmirror/plugin.cfg" )
 
 [gui]
 

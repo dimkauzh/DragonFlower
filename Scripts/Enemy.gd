@@ -3,12 +3,13 @@ extends KinematicBody2D
 var health = 100
 var gravity = 100
 var vel = Vector2.ZERO
-var speed = 100
+var speed = 150
+var normal_speed = 150
 var player = null
 var player_attacker
 onready var player_node = get_node("/root/World/Player")
 onready var timer = $Timer
-export var direction_autowalk = -1
+export var direction_autowalk = 1
 
 
 func _physics_process(_delta):
@@ -20,7 +21,7 @@ func _physics_process(_delta):
 			direction.y += gravity
 		move_and_slide(direction * speed)
 	if player == null:
-		if $RayCast2D2.is_colliding() or is_on_wall():
+		if is_on_wall():
 			direction_autowalk = direction_autowalk * -1
 		print(direction_autowalk)
 		vel.y += 2
@@ -38,11 +39,12 @@ func _on_Player_attacker_body_entered(body):
 	if body.is_in_group("player"):
 		body.health -= 10
 		timer.start()
-func _on_Player_attacker_body_exited(_body):
+
+func _on_Player_attacker_body_exited(body):
 	player_attacker = null
 
 func _on_Timer_timeout():
-	if player_attacker:
+	if player_attacker and player_attacker.is_in_group("player"):
 		player_node.health -= 10
 		timer.start()
 
